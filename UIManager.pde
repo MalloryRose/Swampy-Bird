@@ -44,6 +44,7 @@
      titleFont = createFont("data/fonts/TitleFont.TTF", 32);
      
      xTracker = 0;
+     speedFactor = 5;
      
      updateMenuBackground();
    }
@@ -57,15 +58,16 @@
      if (mode == 0){
        image(lightMenuBackground,0,0);
        image(toggleLight, 0, 340);
-       fill(245, 120, 66);
      }
      else {
        image(darkMenuBackground,0,0);
        image(toggleDark, 0, 340);
-       fill(163, 63, 21);
      }
+     fill(245, 120, 66);
      textFont(titleFont, 50);
      text("Swampy \nBird", 270, 150);
+     textFont(titleFont, 30);
+     text("Play", 270, 250);
      // TODO: add other menu components
    }
    

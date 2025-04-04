@@ -13,7 +13,9 @@ UIManager UI;
 }
 
 void draw() {
-  
+  if (UI.gamePlaying) {
+    UI.updateGameBackground();
+  }
 }
 
 void mouseClicked() {
@@ -23,7 +25,10 @@ void mouseClicked() {
     if (mouseX < 80 && mouseX > 5 && mouseY < 395 && mouseY > 345){
       UI.updateGameMode();
     }
-    //TODO: Check for press play, difficulty level
+    if (mouseX > 280 && mouseX < 375 && mouseY > 215 && mouseY < 250){
+      UI.startGame();
+    }
+    //TODO: difficulty level
   }
   //TODO: game clicks
 }
