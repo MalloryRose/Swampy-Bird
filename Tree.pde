@@ -1,13 +1,13 @@
 /**
- * Tree Class
- * Represents obstacles in the game (UF-themed trees instead of pipes).
+ * SwampyTree Class
+ * Represents obstacles in the game (UF-themed SwampyTrees instead of pipes).
  */
-class Tree {
+class SwampyTree {
   float x, yTop, gapHeight;
   float width = 50;
   boolean passed = false;
 
-  Tree(float x, float yTop, float gapHeight) {
+  SwampyTree(float x, float yTop, float gapHeight) {
     this.x = x;
     this.yTop = yTop;
     this.gapHeight = gapHeight;

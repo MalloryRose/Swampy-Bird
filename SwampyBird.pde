@@ -4,11 +4,10 @@
  */
 UIManager UI;
 Bird bird;
-ArrayList<Tree> trees; // Assumes Tree is defined in Tree.pde
+TreeManager treeManager; // Replaced ArrayList<SwampTree>
 int difficulty = 0;
 int score = 0;
 int highScore = 0;
-int treeSpawnCounter = 0;
 
 void setup() {
   size(600, 400);
@@ -16,7 +15,7 @@ void setup() {
 
   UI = new UIManager();
   bird = new Bird(width/3, height/2, difficulty);
-  trees = new ArrayList<Tree>();
+  treeManager = new TreeManager();
 }
 
 void draw() {
@@ -28,29 +27,18 @@ void draw() {
     if (!UI.gameLost) {
       bird.update();
 
-      treeSpawnCounter++;
-      if (treeSpawnCounter >= 90) {
-        trees.add(new Tree(width, random(50, 200), 150));
-        treeSpawnCounter = 0;
+      // Update trees via TreeManager
+      treeManager.update();
+
+      // Check collisions
+      if (treeManager.checkCollisions(bird.getHitbox())) {
+        gameOver();
       }
 
-      for (int i = trees.size() - 1; i >= 0; i--) {
-        Tree tree = trees.get(i);
-        tree.update();
-        tree.display();
-
-        if (tree.checkCollision(bird.getHitbox())) {
-          gameOver();
-        }
-
-        if (!tree.passed && tree.x + tree.width < bird.x) {
-          addScore(1);
-          tree.passed = true;
-        }
-
-        if (tree.x < -tree.width) {
-          trees.remove(i);
-        }
+      // Check scoring
+      int points = treeManager.checkScoring(bird.x);
+      if (points > 0) {
+        addScore(points);
       }
 
       if (bird.hitGround()) {
@@ -58,12 +46,11 @@ void draw() {
       }
 
       bird.display();
+      treeManager.display();
       displayScore();
     } else {
       bird.display();
-      for (Tree tree : trees) {
-        tree.display();
-      }
+      treeManager.display();
       displayGameOver();
     }
   }
@@ -79,6 +66,7 @@ void mouseClicked() {
     }
   } else if (!UI.gameLost) {
     bird.flap();
+.ConcurrentModificationException
   } else {
     if (mouseX > 230 && mouseX < 370 && mouseY > 230 && mouseY < 270) {
       resetGame();
@@ -102,14 +90,14 @@ void startGame() {
   UI.gameLost = false;
   bird.reset(width/3, height/2);
   bird.setDifficulty(difficulty);
-  trees.clear();
+  treeManager.reset();
 }
 
 void resetGame() {
   score = 0;
   UI.gameLost = false;
   bird.reset(width/3, height/2);
-  trees.clear();
+  treeManager.reset();
 }
 
 void gameOver() {
