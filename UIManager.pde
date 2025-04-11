@@ -62,12 +62,23 @@
        image(darkMenuBackground,0,0);
        image(toggleDark, 0, 340);
      }
-     fill(245, 120, 66);
      textFont(titleFont, 50);
+     textAlign(LEFT);
+     fill(0, 33, 91);
+     text("Swampy \nBird", 273, 153);
+     fill(245, 120, 66);
      text("Swampy \nBird", 270, 150);
      textFont(titleFont, 30);
-     text("Play", 270, 250);
-     // TODO: add other menu components
+     
+     if (mouseX < 388 && mouseX > 268 && mouseY < 248 && mouseY > 208){
+       fill(0, 15, 41);
+     }
+     else {
+       fill(0, 33, 91);
+     }
+     rect(268, 208, 128, 40, 10);
+     fill(255);
+     text("PLAY", 280, 240);
    }
    
    void startGame() { //begins the game
@@ -77,40 +88,6 @@
    
    void updateGameBackground() {
      if (speedFactor == 5){
-       if (mode == 0) {
-         if (xTracker <= 600) {
-            croppedBackground = lightGameBackground.get(xTracker, 0, 600, 400);
-            image(croppedBackground, 0, 0);
-          } 
-          else {
-            // wrap around background
-            int width1 = 1200 - xTracker;
-            int width2 = 600 - width1;
-      
-            PImage firstPart = lightGameBackground.get(xTracker, 0, width1, 400);
-            PImage secondPart = lightGameBackground.get(0, 0, width2, 400);
-      
-            image(firstPart, 0, 0);
-            image(secondPart, width1, 0);
-          }
-       }
-       else {
-          if (xTracker <= 600) {
-            croppedBackground = darkGameBackground.get(xTracker, 0, 600, 400);
-            image(croppedBackground, 0, 0);
-          } 
-          else {
-            // wrap around background
-            int width1 = 1200 - xTracker;
-            int width2 = 600 - width1;
-      
-            PImage firstPart = darkGameBackground.get(xTracker, 0, width1, 400);
-            PImage secondPart = darkGameBackground.get(0, 0, width2, 400);
-      
-            image(firstPart, 0, 0);
-            image(secondPart, width1, 0);
-          }
-       }
        xTracker += 1;
        if (xTracker >= 1200) {
          xTracker = 0;
@@ -120,6 +97,77 @@
      else{
        speedFactor += 1;
      }
-     
+     if (mode == 0) {
+       if (xTracker <= 600) {
+          croppedBackground = lightGameBackground.get(xTracker, 0, 600, 400);
+          image(croppedBackground, 0, 0);
+        } 
+        else {
+          // wrap around background
+          int width1 = 1200 - xTracker;
+          int width2 = 600 - width1;
+    
+          PImage firstPart = lightGameBackground.get(xTracker, 0, width1, 400);
+          PImage secondPart = lightGameBackground.get(0, 0, width2, 400);
+    
+          image(firstPart, 0, 0);
+          image(secondPart, width1, 0);
+        }
+     }
+     else {
+      if (xTracker <= 600) {
+        croppedBackground = darkGameBackground.get(xTracker, 0, 600, 400);
+        image(croppedBackground, 0, 0);
+      } 
+      else {
+        // wrap around background
+        int width1 = 1200 - xTracker;
+        int width2 = 600 - width1;
+      
+        PImage firstPart = darkGameBackground.get(xTracker, 0, width1, 400);
+        PImage secondPart = darkGameBackground.get(0, 0, width2, 400);
+      
+        image(firstPart, 0, 0);
+        image(secondPart, width1, 0);
+      }
+    }
+  }
+   
+   void gameLostBackground() {
+     background(0);
+     if (mode == 0) {
+       if (xTracker <= 600) {
+          croppedBackground = lightGameBackground.get(xTracker, 0, 600, 400);
+          image(croppedBackground, 0, 0);
+        } 
+        else {
+          // wrap around background
+          int width1 = 1200 - xTracker;
+          int width2 = 600 - width1;
+    
+          PImage firstPart = lightGameBackground.get(xTracker, 0, width1, 400);
+          PImage secondPart = lightGameBackground.get(0, 0, width2, 400);
+    
+          image(firstPart, 0, 0);
+          image(secondPart, width1, 0);
+        }
+     }
+     else {
+        if (xTracker <= 600) {
+          croppedBackground = darkGameBackground.get(xTracker, 0, 600, 400);
+          image(croppedBackground, 0, 0);
+        } 
+        else {
+          // wrap around background
+          int width1 = 1200 - xTracker;
+          int width2 = 600 - width1;
+    
+          PImage firstPart = darkGameBackground.get(xTracker, 0, width1, 400);
+          PImage secondPart = darkGameBackground.get(0, 0, width2, 400);
+    
+          image(firstPart, 0, 0);
+          image(secondPart, width1, 0);
+        }
+     }
    }
  }
