@@ -85,12 +85,12 @@ class UIManager {
     // Draw scrolling background 
     if (mode == 0) {
       // Draw first part of the background
-      image(lightGameBackground, -xTracker, 0, 1200, 800);
+      image(lightGameBackground, -xTracker, 0, width * 2, height * 2);
       // Draw second part to wrap around s
-      image(lightGameBackground, -xTracker + 1200, 0, 1200, 800);
+      image(lightGameBackground, -xTracker + 1200, 0, width * 2, height * 2);
     } else {
-      image(darkGameBackground, -xTracker, 0, 1200, 400);
-      image(darkGameBackground, -xTracker + 1200, 0, 1200, 400);
+      image(darkGameBackground, -xTracker, 0, width * 2, height * 2);
+      image(darkGameBackground, -xTracker + 1200, 0, width * 2, height * 2);
     }
 
     // Update scrolling position
