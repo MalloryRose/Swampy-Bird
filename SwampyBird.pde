@@ -4,7 +4,7 @@
  */
 UIManager UI;
 Bird bird;
-TreeManager treeManager; // Replaced ArrayList<SwampTree>
+TreeManager treeManager;
 int difficulty = 0;
 int score = 0;
 int highScore = 0;
@@ -19,6 +19,9 @@ void setup() {
 }
 
 void draw() {
+  
+  background(0); 
+
   if (!UI.gamePlaying) {
     UI.updateMenuBackground();
   } else {
@@ -27,15 +30,12 @@ void draw() {
     if (!UI.gameLost) {
       bird.update();
 
-      // Update trees via TreeManager
       treeManager.update();
 
-      // Check collisions
       if (treeManager.checkCollisions(bird.getHitbox())) {
         gameOver();
       }
 
-      // Check scoring
       int points = treeManager.checkScoring(bird.x);
       if (points > 0) {
         addScore(points);
@@ -66,7 +66,6 @@ void mouseClicked() {
     }
   } else if (!UI.gameLost) {
     bird.flap();
-.ConcurrentModificationException
   } else {
     if (mouseX > 230 && mouseX < 370 && mouseY > 230 && mouseY < 270) {
       resetGame();

@@ -22,7 +22,7 @@ class Bird {
     y = startY;
     difficulty = diff;
 
-    // Load bird images with error checking
+  
     birdFrames = new PImage[3];
     birdFrames[0] = loadImage("data/sprites/bird1.png");
     birdFrames[1] = loadImage("data/sprites/bird2.png");

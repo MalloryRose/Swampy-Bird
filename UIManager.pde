@@ -14,8 +14,7 @@ class UIManager {
   boolean gamePlaying;
   int mode;
   boolean gameLost;
-  int xTracker;
-  int speedFactor;
+  float xTracker;
 
   UIManager() {
     gamePlaying = false;
@@ -29,18 +28,23 @@ class UIManager {
     toggleLight = loadImage("data/sprites/toggleLight.PNG");
     toggleDark = loadImage("data/sprites/toggleDark.PNG");
 
-    // Resize to match canvas width with continuous scrolling in mind
-    lightGameBackground.resize(1200, 400); // Keep width > canvas for scrolling
+    
+    if (lightGameBackground == null || darkGameBackground == null) {
+      println("Error: Failed to load game background images.");
+      exit();
+    }
+
+    // Resize to ensure proper dimensions
+    lightGameBackground.resize(1200, 400);
     darkGameBackground.resize(1200, 400);
 
-    // Debug sizes
-    println("Light Game BG: " + lightGameBackground.width + "x" + lightGameBackground.height);
-    println("Dark Game BG: " + darkGameBackground.width + "x" + darkGameBackground.height);
+    // Debug dimensions after resize
+    println("Light Game BG after resize: " + lightGameBackground.width + "x" + lightGameBackground.height);
+    println("Dark Game BG after resize: " + darkGameBackground.width + "x" + darkGameBackground.height);
 
     titleFont = createFont("data/fonts/TitleFont.TTF", 32);
 
     xTracker = 0;
-    speedFactor = 0;
 
     updateMenuBackground();
   }
@@ -52,11 +56,11 @@ class UIManager {
 
   void updateMenuBackground() {
     if (mode == 0) {
-      image(lightMenuBackground, 0, 0, width, height); // Ensure full size
+      image(lightMenuBackground, 0, 0, width, height);
       image(toggleLight, 0, 340);
       fill(245, 120, 66);
     } else {
-      image(darkMenuBackground, 0, 0, width, height); // Ensure full size
+      image(darkMenuBackground, 0, 0, width, height);
       image(toggleDark, 0, 340);
       fill(163, 63, 21);
     }
@@ -73,25 +77,26 @@ class UIManager {
 
   void startGame() {
     gamePlaying = true;
+    xTracker = 0;
     updateGameBackground();
   }
 
   void updateGameBackground() {
-    // Draw scrolling background to fill entire 600x400 canvas
+    // Draw scrolling background 
     if (mode == 0) {
       // Draw first part of the background
-      image(lightGameBackground, -xTracker, 0, 600, 400); // Scale to canvas size
-      // Draw second part to wrap around seamlessly
-      image(lightGameBackground, -xTracker + 600, 0, 600, 400); // Follows immediately
+      image(lightGameBackground, -xTracker, 0, 1200, 800);
+      // Draw second part to wrap around s
+      image(lightGameBackground, -xTracker + 1200, 0, 1200, 800);
     } else {
-      image(darkGameBackground, -xTracker, 0, 600, 400); // Scale to canvas size
-      image(darkGameBackground, -xTracker + 600, 0, 600, 400); // Follows immediately
+      image(darkGameBackground, -xTracker, 0, 1200, 400);
+      image(darkGameBackground, -xTracker + 1200, 0, 1200, 400);
     }
 
     // Update scrolling position
     xTracker += 2;
-    if (xTracker >= 600) { // Reset when one full canvas width has scrolled
+    if (xTracker >= 1200) {
       xTracker = 0;
     }
   }
-} 
+}
