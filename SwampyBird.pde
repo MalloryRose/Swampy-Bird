@@ -97,6 +97,7 @@ void resetGame() {
   UI.gameLost = false;
   BirdClass.reset(width/3, height/2);
   treeManager.reset();
+ 
 }
 
 void gameOver() {
@@ -128,7 +129,7 @@ void displayGameOver() {
   text("High Score: " + highScore, width/2, 230);
 
   fill(0, 33, 91);
-  rect(230, 230, 140, 40, 10);
+  rect(230, 230, 140, 40, 100);
   fill(255);
   textSize(20);
   text("TRY AGAIN", 300, 255);
