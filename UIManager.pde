@@ -1,6 +1,5 @@
 /**
  * UIManager Class
- * 
  * Handles all UI elements and interactions.
  * Manages menus, buttons, score display, and text.
  */
@@ -49,14 +48,14 @@
      updateMenuBackground();
    }
    
-   void updateGameMode(){
-     mode = 1-mode; //toggle mode
+   void updateGameMode() {
+     mode = 1 - mode; //toggle mode
      updateMenuBackground();
    }
    
    void updateMenuBackground() {
-     if (mode == 0){
-       image(lightMenuBackground,0,0);
+     if (mode == 0) {
+       image(lightMenuBackground, 0 , 0);
        image(toggleLight, 0, 340);
      }
      else {
