@@ -7,10 +7,13 @@ class SwampyTree {
   float width = 50;
   boolean passed = false;
 
+  PImage tree;
+  
   SwampyTree(float x, float yTop, float gapHeight) {
     this.x = x;
     this.yTop = yTop;
     this.gapHeight = gapHeight;
+    tree = loadImage("data/sprites/lightTree.png");
   }
 
   void update() {
@@ -21,6 +24,7 @@ class SwampyTree {
     fill(0, 100, 0);
     rect(x, 0, width, yTop);
     rect(x, yTop + gapHeight, width, height - (yTop + gapHeight));
+    image(tree, x, yTop + gapHeight);
   }
 
   boolean checkCollision(float[] birdHitbox) {

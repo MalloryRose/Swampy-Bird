@@ -81,6 +81,7 @@
     rotate(rotation);
     imageMode(CENTER);
     image(BirdClassFrames[currentFrame], 0, 0, width, height);
+    imageMode(CORNER);
     popMatrix();
   }
 
