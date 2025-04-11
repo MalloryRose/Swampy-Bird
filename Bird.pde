@@ -1,35 +1,35 @@
 /**
- * Bird Class
+ * BirdClass Class
  * 
- * Represents the player-controlled bird character.
- * Handles physics, animation, and rendering of the bird.
+ * Represents the player-controlled BirdClass character.
+ * Handles physics, animation, and rendering of the BirdClass.
  */
 
-class Bird {
+  class BirdClass {
   float x, y;
   float velocity;
   float gravity;
   float flapStrength;
-  PImage[] birdFrames;
+  PImage[] BirdClassFrames;
   int currentFrame;
   float rotation;
   int frameCounter;
   float width, height;
   int difficulty;
 
-  Bird(float startX, float startY, int diff) {
+  BirdClass(float startX, float startY, int diff) {
     x = startX;
     y = startY;
     difficulty = diff;
 
   
-    birdFrames = new PImage[3];
-    birdFrames[0] = loadImage("data/sprites/bird1.png");
-    birdFrames[1] = loadImage("data/sprites/bird2.png");
-    birdFrames[2] = loadImage("data/sprites/bird3.png");
+    BirdClassFrames = new PImage[3];
+    BirdClassFrames[0] = loadImage("data/sprites/bird1.png");
+    BirdClassFrames[1] = loadImage("data/sprites/bird2.png");
+    BirdClassFrames[2] = loadImage("data/sprites/bird3.png");
     for (int i = 0; i < 3; i++) {
-      if (birdFrames[i] == null) {
-        println("Error: Could not load bird" + (i+1) + ".png");
+      if (BirdClassFrames[i] == null) {
+        println("Error: Could not load BirdClass" + (i+1) + ".png");
         exit();
       }
     }
@@ -55,7 +55,7 @@ class Bird {
     velocity += gravity;
     y += velocity;
 
-    // Adjusted boundary to allow bird to go near top
+    // Adjusted boundary to allow BirdClass to go near top
     if (y < 20) {
       y = 20;
       velocity = 0;
@@ -80,7 +80,7 @@ class Bird {
     translate(x, y);
     rotate(rotation);
     imageMode(CENTER);
-    image(birdFrames[currentFrame], 0, 0, width, height);
+    image(BirdClassFrames[currentFrame], 0, 0, width, height);
     popMatrix();
   }
 

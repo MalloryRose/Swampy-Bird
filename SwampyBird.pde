@@ -1,9 +1,9 @@
 /**
- * Swampy Bird Game - Main File
+ * Swampy BirdClass Game - Main File
  * Initializes the game, handles game states, and manages all game objects.
  */
 UIManager UI;
-Bird bird;
+BirdClass BirdClass;
 TreeManager treeManager;
 int difficulty = 0;
 int score = 0;
@@ -14,7 +14,7 @@ void setup() {
   frameRate(60);
 
   UI = new UIManager();
-  bird = new Bird(width/3, height/2, difficulty);
+  BirdClass = new BirdClass(width/3, height/2, difficulty);
   treeManager = new TreeManager();
 }
 
@@ -28,28 +28,28 @@ void draw() {
     UI.updateGameBackground();
 
     if (!UI.gameLost) {
-      bird.update();
+      BirdClass.update();
 
       treeManager.update();
 
-      if (treeManager.checkCollisions(bird.getHitbox())) {
+      if (treeManager.checkCollisions(BirdClass.getHitbox())) {
         gameOver();
       }
 
-      int points = treeManager.checkScoring(bird.x);
+      int points = treeManager.checkScoring(BirdClass.x);
       if (points > 0) {
         addScore(points);
       }
 
-      if (bird.hitGround()) {
+      if (BirdClass.hitGround()) {
         gameOver();
       }
 
-      bird.display();
+      BirdClass.display();
       treeManager.display();
       displayScore();
     } else {
-      bird.display();
+      BirdClass.display();
       treeManager.display();
       displayGameOver();
     }
@@ -65,7 +65,7 @@ void mouseClicked() {
       startGame();
     }
   } else if (!UI.gameLost) {
-    bird.flap();
+    BirdClass.flap();
   } else {
     if (mouseX > 230 && mouseX < 370 && mouseY > 230 && mouseY < 270) {
       resetGame();
@@ -79,7 +79,7 @@ void mouseClicked() {
 
 void keyPressed() {
   if (UI.gamePlaying && !UI.gameLost && (key == ' ' || keyCode == UP)) {
-    bird.flap();
+    BirdClass.flap();
   }
 }
 
@@ -87,15 +87,15 @@ void startGame() {
   score = 0;
   UI.gamePlaying = true;
   UI.gameLost = false;
-  bird.reset(width/3, height/2);
-  bird.setDifficulty(difficulty);
+  BirdClass.reset(width/3, height/2);
+  BirdClass.setDifficulty(difficulty);
   treeManager.reset();
 }
 
 void resetGame() {
   score = 0;
   UI.gameLost = false;
-  bird.reset(width/3, height/2);
+  BirdClass.reset(width/3, height/2);
   treeManager.reset();
 }
 
