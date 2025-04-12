@@ -28,7 +28,7 @@ void draw() {
     else {
       BirdClass.display();
       treeManager.display();
-      displayGameOver();
+      UI.gameLostBackground();
     }
   }
   else {
@@ -38,21 +38,48 @@ void draw() {
 
 void mouseClicked() {
   if (!UI.gamePlaying) {
-    if (mouseX < 80 && mouseX > 5 && mouseY < 395 && mouseY > 345) {
-      UI.updateGameMode();
+    if(UI.settingsOpen) {
+      //check for different toggles or click outside of box/X to close
+      if (mouseX < 75/2 || mouseX > width - 75/2 || mouseY < 75/2 || mouseY > height - 75/2) {
+        UI.closeSettings();
+      }
+      else if (mouseX < width - 55 && mouseX > width - 95 && mouseY > 55 && mouseY < 95) {
+        UI.closeSettings();
+      }
+      if (mouseX > 400 && mouseX < 450 && mouseY > 125 && mouseY < 150){
+        UI.updateMusicMode();
+      }
+      if (mouseX > 400 && mouseX < 450 && mouseY > 165 && mouseY < 190){
+        UI.updateSoundMode();
+      }
+      if (mouseX > 400 && mouseX < 450 && mouseY > 205 && mouseY < 230){
+        UI.updateLightMode();
+      }
+      if (mouseX > 400 && mouseX < 450 && mouseY > 245 && mouseY < 270){
+        UI.updateDifficultyMode();
+        difficulty = 1 - difficulty;
+      }
     }
-    if (mouseX > 280 && mouseX < 375 && mouseY > 215 && mouseY < 250){
-      startGame();
+    else {
+      if (mouseX > 280 && mouseX < 375 && mouseY > 215 && mouseY < 250) {
+        startGame();
+      }
+      if (mouseX < 396 && mouseX > 268 && mouseY < 283 && mouseY > 258) {
+        UI.openSettings();
+      }
     }
-  } else if (!UI.gameLost) {
+  } 
+  else if (!UI.gameLost) {
     BirdClass.flap();
-  } else {
+  } 
+  else {
     if (mouseX > 230 && mouseX < 370 && mouseY > 230 && mouseY < 270) {
       resetGame();
     }
     if (mouseX > 230 && mouseX < 370 && mouseY > 290 && mouseY < 330) {
       UI.gamePlaying = false;
       UI.gameLost = false;
+      UI.updateMenuBackground();
     }
   }
 }
@@ -92,7 +119,7 @@ void updateGame() {
 
   BirdClass.display();
   treeManager.display();
-  displayScore();
+  UI.updateScore(score);
 }
 
 void resetGame() {
@@ -107,56 +134,6 @@ void gameOver() {
   if (score > highScore) {
     highScore = score;
   }
-}
-
-void displayScore() {
-  textSize(36);
-  textAlign(CENTER);
-  fill(0, 33, 91);
-  text(score, width/2+3, 53);
-  text(score, width/2-3, 53);
-  text(score, width/2+3, 47);
-  text(score, width/2-3, 47);
-  fill(255);
-  text(score, width/2, 50);
-}
-
-void displayGameOver() {
-  UI.gameLostBackground();
-  
-  fill(0, 0, 0, 150);
-  rect(0, 0, width, height);
-  
-  fill(245, 120, 66);
-  textSize(48);
-  textAlign(CENTER);
-  text("GAME OVER", width/2, 100);
-
-  fill(255);
-  textSize(24);
-  text("Score: " + score, width/2, 160);
-  text("High Score: " + highScore, width/2, 190);
-
-  if (mouseX < 390 && mouseX > 210 && mouseY < 270 && mouseY > 230){
-    fill(0, 15, 41);
-  }
-  else {
-    fill(0, 33, 91);
-  }
-  rect(210, 230, 180, 40, 10);
-  fill(255);
-  textSize(20);
-  text("TRY AGAIN", 300, 258);
-
-  if (mouseX < 370 && mouseX > 230 && mouseY < 320 && mouseY > 290){
-    fill(0, 15, 41);
-  }
-  else {
-    fill(0, 33, 91);
-  }
-  rect(230, 290, 140, 40, 10);
-  fill(255);
-  text("MENU", 300, 320);
 }
 
 void addScore(int points) {
