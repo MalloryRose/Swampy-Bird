@@ -117,7 +117,9 @@ class UIManager {
     textFont(titleFont, 15);
     rect(268, 258, 128, 25, 8);
     fill(255);
-    text("SETTINGS", 280, 278);
+    text("SETTINGS", 280, 278); 
+
+
 
     if (settingsOpen) {
       rectMode(CENTER);
@@ -235,6 +237,8 @@ class UIManager {
     text(score, width/2-3, 47);
     fill(255);
     text(score, width/2, 50);
+    
+
   }
 
   void updateGameBackground() {
@@ -347,5 +351,7 @@ class UIManager {
     rect(230, 290, 140, 40, 10);
     fill(255);
     text("MENU", 300, 320);
+    
+  
   }
 }

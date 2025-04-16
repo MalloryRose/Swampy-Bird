@@ -54,9 +54,11 @@ void mouseClicked() {
       }
       if (mouseX > 400 && mouseX < 450 && mouseY > 125 && mouseY < 150){
         UI.updateMusicMode();
+        soundManager.toggleMusic();
       }
       if (mouseX > 400 && mouseX < 450 && mouseY > 165 && mouseY < 190){
         UI.updateSoundMode();
+        soundManager.toggleSound();
       }
       if (mouseX > 400 && mouseX < 450 && mouseY > 205 && mouseY < 230){
         UI.updateLightMode();
