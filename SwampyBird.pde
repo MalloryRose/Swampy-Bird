@@ -5,6 +5,7 @@
 UIManager UI;
 BirdClass BirdClass;
 TreeManager treeManager;
+SoundManager soundManager;
 
 int difficulty = 0;
 int score = 0;
@@ -17,6 +18,11 @@ void setup() {
   UI = new UIManager();
   BirdClass = new BirdClass(width/3, height/2, difficulty);
   treeManager = new TreeManager(difficulty);
+  // Initialize Sound Manager
+  soundManager = new SoundManager();
+  
+  // Start playing background music
+  soundManager.playBackgroundMusic();
 }
 
 void draw() {
@@ -71,6 +77,7 @@ void mouseClicked() {
   } 
   else if (!UI.gameLost) {
     BirdClass.flap();
+    soundManager.playFlap();
   } 
   else {
     if (mouseX > 230 && mouseX < 370 && mouseY > 230 && mouseY < 270) {
@@ -87,6 +94,17 @@ void mouseClicked() {
 void keyPressed() {
   if (UI.gamePlaying && !UI.gameLost && (key == ' ' || keyCode == UP)) {
     BirdClass.flap();
+    soundManager.playFlap();
+  }
+  
+    // Press 'M' to toggle music
+  if (key == 'm' || key == 'M') {
+    soundManager.toggleMusic();
+  }
+  
+  // Press 'S' to toggle sound effects
+  if (key == 's' || key == 'S') {
+    soundManager.toggleSound();
   }
 }
 
@@ -136,8 +154,10 @@ void gameOver() {
   if (score > highScore) {
     highScore = score;
   }
+  soundManager.playHit();
 }
 
 void addScore(int points) {
   score += points;
+  soundManager.playPoint();
 }
