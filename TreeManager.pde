@@ -71,10 +71,10 @@ class TreeManager {
   void setDifficulty(int diff) {
     difficulty = diff;
       if (difficulty == 0){
-        spawnInterval = 90; // Spawn every 1.5 seconds at 60 FPS
+        spawnInterval = 70; // Spawn every 1.5 seconds at 60 FPS
     }
      else{
-         spawnInterval = 60;
+         spawnInterval = 50;
      }
    
   }
