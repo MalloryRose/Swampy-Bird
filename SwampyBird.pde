@@ -16,7 +16,7 @@ void setup() {
 
   UI = new UIManager();
   BirdClass = new BirdClass(width/3, height/2, difficulty);
-  treeManager = new TreeManager();
+  treeManager = new TreeManager(difficulty);
 }
 
 void draw() {
@@ -97,6 +97,7 @@ void startGame() {
   UI.gameLost = false;
   BirdClass.reset(width/3, height/2);
   BirdClass.setDifficulty(difficulty);
+  treeManager.setDifficulty(difficulty);
   treeManager.reset();
 }
 

@@ -6,18 +6,28 @@ class SwampyTree {
   float x, yTop, gapHeight;
   float width = 50;
   boolean passed = false;
+  int difficulty;
+  int speedFactor = 2;
 
   PImage tree;
   
-  SwampyTree(float x, float yTop, float gapHeight) {
+  SwampyTree(float x, float yTop, float gapHeight, int diff) {
     this.x = x;
     this.yTop = yTop;
     this.gapHeight = gapHeight;
     tree = loadImage("data/sprites/lightTree.png");
+ 
+    difficulty = diff;
+     if (difficulty == 0) {
+      speedFactor = 2;
+    } else {
+      speedFactor = 4;
+    }
+    
   }
 
   void update() {
-    x -= 2;
+    x -= speedFactor;
   }
 
   void display() {
@@ -45,4 +55,6 @@ class SwampyTree {
     }
     return false;
   }
+  
+  
 }
