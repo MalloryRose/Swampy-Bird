@@ -7,7 +7,7 @@ class SwampyTree {
   float width = 50;
   boolean passed = false;
   int difficulty;
-  int speedFactor = 2;
+  int speedFactor = 3;
 
   PImage tree;
   
@@ -19,9 +19,9 @@ class SwampyTree {
  
     difficulty = diff;
      if (difficulty == 0) {
-      speedFactor = 2;
+      speedFactor = 3;
     } else {
-      speedFactor = 4;
+      speedFactor = 5;
     }
     
   }

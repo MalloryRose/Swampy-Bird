@@ -39,10 +39,10 @@
 
     velocity = 0;
     if (difficulty == 0) { // Easy
-      gravity = 0.5;
+      gravity = 0.7;
       flapStrength = -8;
     } else { // Hard
-      gravity = 0.7;
+      gravity = 0.9;
       flapStrength = -10;
     }
 
@@ -104,10 +104,10 @@
   void setDifficulty(int diff) {
     difficulty = diff;
     if (difficulty == 0) {
-      gravity = 0.5;
+      gravity = 0.7;
       flapStrength = -8;
     } else {
-      gravity = 0.7;
+      gravity = 0.9;
       flapStrength = -10;
     }
   }
