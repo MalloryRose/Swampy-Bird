@@ -8,18 +8,22 @@ class TreeManager {
   ArrayList<SwampyTree> trees;
   int spawnCounter;
   int spawnInterval; // Frames between tree spawns
+  int difficulty;
 
-  TreeManager() {
+  TreeManager(int diff) {
     trees = new ArrayList<SwampyTree>();
     spawnCounter = 0;
-    spawnInterval = 90; // Spawn every 1.5 seconds at 60 FPS
+   
+    difficulty = diff;
+     
+      
   }
 
   void update() {
     // Spawn new trees
     spawnCounter++;
     if (spawnCounter >= spawnInterval) {
-      trees.add(new SwampyTree(width, random(50, 200), 150));
+      trees.add(new SwampyTree(width, random(50, 200), 150, difficulty));
       spawnCounter = 0;
     }
 
@@ -62,5 +66,16 @@ class TreeManager {
   void reset() {
     trees.clear();
     spawnCounter = 0;
+  }
+  
+  void setDifficulty(int diff) {
+    difficulty = diff;
+      if (difficulty == 0){
+        spawnInterval = 90; // Spawn every 1.5 seconds at 60 FPS
+    }
+     else{
+         spawnInterval = 60;
+     }
+   
   }
 }

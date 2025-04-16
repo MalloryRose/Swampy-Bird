@@ -1,3 +1,5 @@
+import processing.sound.*;
+
 /**
  * Swampy BirdClass Game - Main File
  * Initializes the game, handles game states, and manages all game objects.
@@ -5,6 +7,7 @@
 UIManager UI;
 BirdClass BirdClass;
 TreeManager treeManager;
+SoundManager soundManager;
 
 int difficulty = 0;
 int score = 0;
@@ -16,7 +19,12 @@ void setup() {
 
   UI = new UIManager();
   BirdClass = new BirdClass(width/3, height/2, difficulty);
-  treeManager = new TreeManager();
+  treeManager = new TreeManager(difficulty);
+  // Initialize Sound Manager
+  soundManager = new SoundManager(this);
+  
+  // Start playing background music
+  soundManager.playBackgroundMusic();
 }
 
 void draw() {
@@ -48,9 +56,11 @@ void mouseClicked() {
       }
       if (mouseX > 400 && mouseX < 450 && mouseY > 125 && mouseY < 150){
         UI.updateMusicMode();
+        soundManager.toggleMusic();
       }
       if (mouseX > 400 && mouseX < 450 && mouseY > 165 && mouseY < 190){
         UI.updateSoundMode();
+        soundManager.toggleSound();
       }
       if (mouseX > 400 && mouseX < 450 && mouseY > 205 && mouseY < 230){
         UI.updateLightMode();
@@ -71,6 +81,7 @@ void mouseClicked() {
   } 
   else if (!UI.gameLost) {
     BirdClass.flap();
+    soundManager.playFlap();
   } 
   else {
     if (mouseX > 230 && mouseX < 370 && mouseY > 230 && mouseY < 270) {
@@ -87,7 +98,10 @@ void mouseClicked() {
 void keyPressed() {
   if (UI.gamePlaying && !UI.gameLost && (key == ' ' || keyCode == UP)) {
     BirdClass.flap();
+    soundManager.playFlap();
   }
+  
+ 
 }
 
 void startGame() {
@@ -97,6 +111,7 @@ void startGame() {
   UI.gameLost = false;
   BirdClass.reset(width/3, height/2);
   BirdClass.setDifficulty(difficulty);
+  treeManager.setDifficulty(difficulty);
   treeManager.reset();
 }
 
@@ -127,6 +142,7 @@ void resetGame() {
   UI.gameLost = false;
   BirdClass.reset(width/3, height/2);
   treeManager.reset();
+ 
 }
 
 void gameOver() {
@@ -134,8 +150,10 @@ void gameOver() {
   if (score > highScore) {
     highScore = score;
   }
+  soundManager.playHit();
 }
 
 void addScore(int points) {
   score += points;
+  soundManager.playPoint();
 }
