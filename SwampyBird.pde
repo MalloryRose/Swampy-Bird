@@ -1,3 +1,5 @@
+import processing.sound.*;
+
 /**
  * Swampy BirdClass Game - Main File
  * Initializes the game, handles game states, and manages all game objects.
@@ -19,7 +21,7 @@ void setup() {
   BirdClass = new BirdClass(width/3, height/2, difficulty);
   treeManager = new TreeManager(difficulty);
   // Initialize Sound Manager
-  soundManager = new SoundManager();
+  soundManager = new SoundManager(this);
   
   // Start playing background music
   soundManager.playBackgroundMusic();
@@ -99,15 +101,7 @@ void keyPressed() {
     soundManager.playFlap();
   }
   
-    // Press 'M' to toggle music
-  if (key == 'm' || key == 'M') {
-    soundManager.toggleMusic();
-  }
-  
-  // Press 'S' to toggle sound effects
-  if (key == 's' || key == 'S') {
-    soundManager.toggleSound();
-  }
+ 
 }
 
 void startGame() {
