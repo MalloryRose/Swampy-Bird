@@ -7,7 +7,7 @@
 import ddf.minim.*;
 
 class SoundManager {
-  // Minim objects
+  // Minim object
   Minim minim;
   
   // Sound pools for frequently triggered sounds

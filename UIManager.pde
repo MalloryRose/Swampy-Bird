@@ -36,6 +36,7 @@ class UIManager {
   int xTracker; //tracks position of background image
   int speedFactor; //speed at which the background moves
 
+  // Constructor initializes UI components to default and loads assets.
   UIManager() {
     gamePlaying = false;
     gameLost = false;
@@ -68,40 +69,50 @@ class UIManager {
     updateMenuBackground();
   }
 
+  // Setter function for light mode.
   void updateLightMode() {
     lightMode = 1 - lightMode; //toggle mode
     updateMenuBackground();
   }
 
+  // Setter function for sound mode.
   void updateSoundMode() {
     soundMode = !soundMode;
   }
 
+  // Setter function for music mode.
   void updateMusicMode() {
     musicMode = !musicMode;
   }
 
+  // Setter function for difficulty mode.
   void updateDifficultyMode() {
     difficultyMode = !difficultyMode;
   }
 
+  // Function to "open" settings.
   void openSettings() {
     settingsOpen = true;
   }
 
+  // Function to "close" settings.
   void closeSettings() {
     settingsOpen = false;
   }
   
-    void openAbout() {
+  // Function to "open" about screen.
+  void openAbout() {
     aboutOpen = true;
   }
 
+  // Function to "close" about screen.
   void closeAbout() {
     aboutOpen = false;
     aboutTab = 0;
   }
   
+  // Updates menu background. Checks for light mode, 
+  // adds background and text to menu, displays settings or about menu.
   void updateMenuBackground() {
     background(0);
 
@@ -312,12 +323,14 @@ class UIManager {
     }
   }
   
-  void startGame() { //begins the game
+  // Sets game status and updates game background.
+  void startGame() {
     gameLost = false;
     gamePlaying = true;
     updateGameBackground();
   }
 
+  // Updates score to display on screen.
   void updateScore(int score) {
     textSize(36);
     textAlign(CENTER);
@@ -328,10 +341,9 @@ class UIManager {
     text(score, width/2-3, 47);
     fill(255);
     text(score, width/2, 50);
-    
-
   }
 
+  // Updates game background based on position of background.
   void updateGameBackground() {
     if (speedFactor == 5) {
       xTracker += 1;
@@ -376,6 +388,7 @@ class UIManager {
     }
   }
 
+  // Shows game lost background, score and top score, and options to continue.
   void gameLostBackground() {
     background(0);
     if (lightMode == 0) {
