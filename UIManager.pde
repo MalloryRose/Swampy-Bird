@@ -20,11 +20,14 @@ class UIManager {
   PImage toggleOnHover;
 
   PFont titleFont;
-
+  PFont paragraphFont;
+  
   boolean gamePlaying; //true if game has started
   boolean gameLost; //true if tree has been hit
   boolean settingsOpen; //true if settings menu is open
-
+  boolean aboutOpen; //true if about menu is open
+  int aboutTab; //0 for how to play, 1 for credits
+  
   int lightMode; //0 for light mode, 1 for dark mode
   boolean soundMode; //true if sound is on
   boolean musicMode; //true if music is on
@@ -38,6 +41,8 @@ class UIManager {
     gameLost = false;
 
     settingsOpen = false;
+    aboutOpen = false;
+    aboutTab = 0;
     lightMode = 0;
     soundMode = true;
     musicMode = true;
@@ -55,7 +60,8 @@ class UIManager {
     toggleOnHover = loadImage("data/sprites/toggleOnHover.PNG");
 
     titleFont = createFont("data/fonts/TitleFont.TTF", 32);
-
+    paragraphFont = createFont("data/fonts/ParagraphFont.ttf", 32);
+    
     xTracker = 0;
     speedFactor = 5;
 
@@ -79,6 +85,23 @@ class UIManager {
     difficultyMode = !difficultyMode;
   }
 
+  void openSettings() {
+    settingsOpen = true;
+  }
+
+  void closeSettings() {
+    settingsOpen = false;
+  }
+  
+    void openAbout() {
+    aboutOpen = true;
+  }
+
+  void closeAbout() {
+    aboutOpen = false;
+    aboutTab = 0;
+  }
+  
   void updateMenuBackground() {
     background(0);
 
@@ -118,9 +141,19 @@ class UIManager {
     rect(268, 258, 128, 25, 8);
     fill(255);
     text("SETTINGS", 280, 278); 
+    
+    if (mouseX < 396 && mouseX > 268 && mouseY < 313 && mouseY > 288) {
+      fill(0, 15, 41);
+    } 
+    else {
+      fill(0, 33, 91);
+    }
 
+    rect(268, 288, 128, 25, 8);
+    fill(255);
+    text("ABOUT", 280, 308); 
 
-
+    //if settings are open, display
     if (settingsOpen) {
       rectMode(CENTER);
       fill(0, 0, 0, 230);
@@ -210,19 +243,77 @@ class UIManager {
           image(toggleOff, 400, 245);
         }
       }
+    }
+    //if about is open, display
+    if (aboutOpen) {
+      rectMode(CENTER);
+      fill(0, 0, 0, 230);
+      rect(width/2, height/2, width - 75, height - 75, 20);
       
+      fill(50, 50, 50);
+      if (aboutTab == 0) {
+        if(mouseX < 370 && mouseX > 210 && mouseY > 70 && mouseY < 100){
+          fill(60, 60, 60);
+        }
+        rect(290, 100, 160, 60, 10);
+        fill(75, 75, 75);
+        rect(width/2, height/2 + 32, width - 75, height - 75 - 64, 20);
+        noStroke();
+        rect(123, 100, 170, 60, 10);
+      }
+      else if (aboutTab == 1) {
+        if(mouseX < 208 && mouseX > 38 && mouseY > 70 && mouseY < 100){
+          fill(60, 60, 60);
+        }
+        rect(123, 100, 170, 60, 10);
+        fill(75, 75, 75);
+        rect(width/2, height/2 + 32, width - 75, height - 75 - 64, 20);
+        noStroke();
+        rect(290, 100, 160, 60, 10);
+      }
+      rectMode(CORNER);
+      stroke(0);
+     
+      fill(255);
+      textFont(titleFont, 20);
+      text("GAMEPLAY", 50, 95);
+      text("CREDITS", 220, 95);
+      
+      textFont(paragraphFont, 15);
+      if (aboutTab == 0) {
+        textAlign(CENTER);
+        text("Help the Sandhill Crane navigate the swamp!\n\n", width/2, 150);
+           
+        textFont(paragraphFont, 14);
+        textLeading(24);
+        textAlign(LEFT);
+        text("Use the spacebar, up arrow, or left click to fly.\n" + 
+             "Navigate through the tree gaps and watch out for \n" +
+             "gators!\n" +
+             "Want an challenge? Increase game difficulty in\n" +
+             "settings or switch to night mode!", 65, 200);
+      }
+      else if (aboutTab == 1) {
+        textFont(paragraphFont, 14);
+        textLeading(24);
+        text("Created by Mallory Silva and Alexandra Seelig at\n"+
+             "the University of Florida.\n\n" +
+             "Original art by Alexandra Seelig.\n\n" +
+             "Music from freesound.org.\nSound effects from 101soundboards.com.", 62, 150);
+      }
+      textFont(titleFont, 40);
+      if (mouseX < width - 55 && mouseX > width - 95 && mouseY > 55 && mouseY < 95) {
+        fill(125, 125, 125);
+      }
+      else {
+        fill(255);
+      }
+      text("X", width - 90, 90);
     }
   }
-
-  void openSettings() {
-    settingsOpen = true;
-  }
-
-  void closeSettings() {
-    settingsOpen = false;
-  }
-
+  
   void startGame() { //begins the game
+    gameLost = false;
     gamePlaying = true;
     updateGameBackground();
   }
