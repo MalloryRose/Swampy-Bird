@@ -17,6 +17,7 @@
   float width, height;
   int difficulty;
 
+  // Constructor to initialize bird variables, including default position and difficulty factor
   BirdClass(float startX, float startY, int diff) {
     x = startX;
     y = startY;
@@ -51,6 +52,7 @@
     rotation = 0;
   }
 
+  // Function to update position of bird on
   void update() {
     velocity += gravity;
     y += velocity;
@@ -61,7 +63,7 @@
       velocity = 0;
     }
 
-    // Adjusted rotation mapping for more natural feel
+    // Adjusted rotation mapping
     rotation = map(velocity, -8, 12, -PI/6, PI/3);
 
     frameCounter++;
@@ -71,10 +73,12 @@
     }
   }
 
+  // Updates velocity when bird flaps
   void flap() {
     velocity = flapStrength;
   }
 
+  // Displays bird on screen based on position and orientation.
   void display() {
     pushMatrix();
     translate(x, y);
@@ -85,15 +89,18 @@
     popMatrix();
   }
 
+  // Checks if bird has hit the ground.
   boolean hitGround() {
     return y + height/2 > 400;
   }
 
+  // Returns position of hitbox for game loss condition check.
   float[] getHitbox() {
     float hitboxRadius = (width + height) / 4 * 0.8;
     return new float[]{x, y, hitboxRadius};
   }
 
+  //Resets bird position, velocity, and rotation.
   void reset(float startX, float startY) {
     x = startX;
     y = startY;
@@ -101,6 +108,7 @@
     rotation = 0;
   }
 
+  // Adjusts difficulty by setting gravity factor and flap strength.
   void setDifficulty(int diff) {
     difficulty = diff;
     if (difficulty == 0) {

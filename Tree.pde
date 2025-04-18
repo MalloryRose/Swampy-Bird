@@ -11,6 +11,7 @@ class SwampyTree {
 
   PImage tree;
   
+  // Constructor sets defualt tree conditions on creation.
   SwampyTree(float x, float yTop, float gapHeight, int diff) {
     this.x = x;
     this.yTop = yTop;
@@ -26,10 +27,12 @@ class SwampyTree {
     
   }
 
+  // Updates tree position based on speedFactor
   void update() {
     x -= speedFactor;
   }
 
+  // Displays tree on screen.
   void display() {
     fill(0, 100, 0);
     
@@ -43,6 +46,7 @@ class SwampyTree {
     image(tree, x-5, yTop + gapHeight);
   }
 
+  // Checks if bird has hit tree.
   boolean checkCollision(float[] birdHitbox) {
     float birdX = birdHitbox[0];
     float birdY = birdHitbox[1];
@@ -55,6 +59,5 @@ class SwampyTree {
     }
     return false;
   }
-  
   
 }

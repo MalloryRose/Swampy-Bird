@@ -19,6 +19,7 @@ class TreeManager {
       
   }
 
+  // Updates (adds and removes) trees when needed.
   void update() {
     // Spawn new trees
     spawnCounter++;
@@ -37,12 +38,14 @@ class TreeManager {
     }
   }
 
+  // Displays trees.
   void display() {
     for (SwampyTree tree : trees) {
       tree.display();
     }
   }
 
+  // Checks if bird has hit a tree.
   boolean checkCollisions(float[] birdHitbox) {
     for (SwampyTree tree : trees) {
       if (tree.checkCollision(birdHitbox)) {
@@ -52,6 +55,7 @@ class TreeManager {
     return false;
   }
 
+  // Checks if bird has passed a new tree.
   int checkScoring(float birdX) {
     int points = 0;
     for (SwampyTree tree : trees) {
@@ -63,11 +67,13 @@ class TreeManager {
     return points;
   }
 
+  // Resets trees to zero.
   void reset() {
     trees.clear();
     spawnCounter = 0;
   }
   
+  // Adjusts difficulty (speed and spawn rate).
   void setDifficulty(int diff) {
     difficulty = diff;
       if (difficulty == 0){

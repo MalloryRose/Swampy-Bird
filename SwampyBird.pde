@@ -14,6 +14,9 @@ int difficulty = 0;
 int score = 0;
 int highScore = 0;
 
+// Sets up game by creating board size, frame rate, 
+// defining UIManager object, BirdClass object, 
+// treeManager object, and soundManager object.
 void setup() {
   size(600, 400);
   frameRate(60);
@@ -21,13 +24,16 @@ void setup() {
   UI = new UIManager();
   BirdClass = new BirdClass(width/3, height/2, difficulty);
   treeManager = new TreeManager(difficulty);
-  // Initialize Sound Manager
   soundManager = new SoundManager(this);
   
   // Start playing background music
   soundManager.playBackgroundMusic();
 }
 
+// Redraws game depending on conditions.
+// If the game is playing, the game background is updated and the game is updated.
+// If the game is lost, the game lost background is displayed.
+// If the game is not playing, the menu background is displayed.
 void draw() {
   if (UI.gamePlaying) {
     if (!UI.gameLost) {
@@ -45,11 +51,11 @@ void draw() {
   }
 }
 
+// Checks for mouse clicks depending on game state.
 void mouseClicked() {
   if (!UI.gamePlaying) {
-    //settings buttons
+    // Settings buttons
     if(UI.settingsOpen) {
-      //check for different toggles or click outside of box/X to close
       if (mouseX < 75/2 || mouseX > width - 75/2 || mouseY < 75/2 || mouseY > height - 75/2) {
         UI.closeSettings();
       }
@@ -72,8 +78,8 @@ void mouseClicked() {
         difficulty = 1 - difficulty;
       }
     }
+    // About menu buttons
     else if (UI.aboutOpen) {
-      //about menu buttons
       if (mouseX < 75/2 || mouseX > width - 75/2 || mouseY < 75/2 || mouseY > height - 75/2) {
         UI.closeAbout();
       }
@@ -87,7 +93,7 @@ void mouseClicked() {
         UI.aboutTab = 1;
       }
     }
-    //main menu buttons
+    // Main menu buttons
     else {
       if (mouseX > 280 && mouseX < 375 && mouseY > 215 && mouseY < 250) {
         startGame();
@@ -100,10 +106,12 @@ void mouseClicked() {
       }
     }
   } 
+  // Gameplay mouse click triggers bird flap
   else if (!UI.gameLost) {
     BirdClass.flap();
     soundManager.playFlap();
   } 
+  // Game lost buttons
   else {
     if (mouseX > 230 && mouseX < 370 && mouseY > 230 && mouseY < 270) {
       resetGame();
@@ -116,14 +124,15 @@ void mouseClicked() {
   }
 }
 
+//Key presses used for gameplay. If space or up arrow, bird flaps
 void keyPressed() {
-  // Key presses for gameplay
   if (UI.gamePlaying && !UI.gameLost && (key == ' ' || keyCode == UP)) {
     BirdClass.flap();
     soundManager.playFlap();
   }
 }
 
+// General function to trigger game starting conditions in UI, BirdClass, and treeManager.
 void startGame() {
   UI.startGame();
   score = 0;
@@ -133,6 +142,7 @@ void startGame() {
   treeManager.reset();
 }
 
+// General function to trigger game updating conditions in UI, BirdClass, and treeManager.
 void updateGame() {
   BirdClass.update();
   treeManager.update();
@@ -155,6 +165,7 @@ void updateGame() {
   UI.updateScore(score);
 }
 
+// General function to trigger game reset in UI, BirdClass, and treeManager.
 void resetGame() {
   score = 0;
   UI.gameLost = false;
@@ -163,6 +174,7 @@ void resetGame() {
  
 }
 
+// General function to trigger game loss conditions in UI, BirdClass, and treeManager.
 void gameOver() {
   UI.gameLost = true;
   if (score > highScore) {
@@ -171,6 +183,7 @@ void gameOver() {
   soundManager.playHit();
 }
 
+// Function to update score.
 void addScore(int points) {
   score += points;
   soundManager.playPoint();
